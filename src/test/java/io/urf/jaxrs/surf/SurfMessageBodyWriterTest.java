@@ -53,13 +53,6 @@ public class SurfMessageBodyWriterTest {
 
 		try (final ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
 
-			//test with a <null> source object.
-			surfMessageBodyWriter.writeTo(null, null, null, null, null, null, baos);
-
-			assertThat(baos.toString(StandardCharsets.UTF_8.name()), equalTo(""));
-
-			baos.reset();
-
 			//test with an empty SimpleFooBarBean source object.
 			final SimpleFooBarBean emptyFooBar = new SimpleFooBarBean();
 
@@ -111,6 +104,25 @@ public class SurfMessageBodyWriterTest {
 
 			assertThat(baos.toString(StandardCharsets.UTF_8.name()), equalTo(serializer.serialize(complexFooBarSurfObject)));
 		}
+	}
+
+	/**
+	 * Tests whether the method
+	 * {@link SurfMessageBodyWriter#writeTo(Object, Class, java.lang.reflect.Type, java.lang.annotation.Annotation[], javax.ws.rs.core.MediaType, javax.ws.rs.core.MultivaluedMap, java.io.OutputStream)}
+	 * is working correctly and throwing an exception when a {@code null} object is provided.
+	 * 
+	 * @throws IOException If an I/O error occurs.
+	 */
+	@Test(expected = NullPointerException.class)
+	public void testWriteToWithNullObject() throws IOException {
+		final SurfMessageBodyWriter<Object> surfMessageBodyWriter = new SurfMessageBodyWriter<>();
+
+		try (final ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+
+			surfMessageBodyWriter.writeTo(null, null, null, null, null, null, baos);
+
+		}
+
 	}
 
 }

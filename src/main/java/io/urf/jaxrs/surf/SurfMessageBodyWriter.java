@@ -99,12 +99,9 @@ public class SurfMessageBodyWriter<T> implements MessageBodyWriter<T> {
 	}
 
 	@Override
-	public void writeTo(final T objectToWrite, final Class<?> clazz, final Type type, final Annotation[] annotations, final MediaType mediaType,
+	public void writeTo(@Nonnull final T objectToWrite, final Class<?> clazz, final Type type, final Annotation[] annotations, final MediaType mediaType,
 			final MultivaluedMap<String, Object> valueMap, final OutputStream out) throws IOException, WebApplicationException {
-
-		if(objectToWrite == null) {
-			return; //TODO see if it's better to just return or if we must throw an exception.
-		}
+		Objects.requireNonNull(objectToWrite, "The object to write should not be <null>.");
 
 		final SurfSerializer serializer = new SurfSerializer();
 		serializer.setFormatted(true);
