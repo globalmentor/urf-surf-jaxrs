@@ -21,6 +21,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
 import java.nio.ByteBuffer;
 import java.util.*;
+import java.util.Map.Entry;
 
 import javax.annotation.*;
 import javax.ws.rs.*;
@@ -45,7 +46,7 @@ import static java.util.Objects.*;
  */
 @Provider
 @Produces("text/surf")
-public class SurfMessageBodyWriter<T> implements MessageBodyWriter<T> {
+public class SurfMessageBodyWriter implements MessageBodyWriter<Object> {
 
 	private final static String ARRAY_LIST_CLASS_NAME = "java.util.ArrayList";
 	private final static String BIG_DECIMAL_CLASS_NAME = "java.math.BigDecimal";
@@ -87,19 +88,22 @@ public class SurfMessageBodyWriter<T> implements MessageBodyWriter<T> {
 	private final static String YEAR_MONTH_CLASS_NAME = "java.time.YearMonth";
 	private final static String ZONED_DATE_TIME_CLASS_NAME = "java.time.ZonedDateTime";
 
-	@Deprecated
 	@Override
-	public long getSize(T t, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
+	public long getSize(Object t, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
 		return -1;
 	}
 
 	@Override
 	public boolean isWriteable(final Class<?> type, final Type genericType, final Annotation[] annotations, final MediaType mediaType) {
-		return type != null;
+		if(mediaType != null) {
+			return "text".equals(mediaType.getType()) && "surf".equals(mediaType.getSubtype());
+		} else {
+			return true;
+		}
 	}
 
 	@Override
-	public void writeTo(@Nonnull final T objectToWrite, final Class<?> clazz, final Type type, final Annotation[] annotations, final MediaType mediaType,
+	public void writeTo(@Nonnull final Object objectToWrite, final Class<?> clazz, final Type type, final Annotation[] annotations, final MediaType mediaType,
 			final MultivaluedMap<String, Object> valueMap, final OutputStream out) throws IOException, WebApplicationException {
 		Objects.requireNonNull(objectToWrite, "The object to write should not be <null>.");
 
@@ -108,10 +112,12 @@ public class SurfMessageBodyWriter<T> implements MessageBodyWriter<T> {
 
 		try {
 
+			final Object surfRepresentation = transformObject(objectToWrite);
+
 			if(out instanceof Appendable) {
-				serializer.serialize((Appendable)out, transformObject(objectToWrite)); //this is needed because when an output stream like `System.out` is provided, SURF doesn't know what method to call.
+				serializer.serialize((Appendable)out, surfRepresentation); //this is needed because when an `Appendable` and `OutputStream` is provided, SURF doesn't know what method to call.
 			} else {
-				serializer.serialize(out, transformObject(objectToWrite));
+				serializer.serialize(out, surfRepresentation);
 			}
 
 		} catch(IllegalAccessException | InvocationTargetException e) {
@@ -160,8 +166,8 @@ public class SurfMessageBodyWriter<T> implements MessageBodyWriter<T> {
 			final Map<?, ?> providedMap = (Map<?, ?>)obj;
 			final Map<Object, Object> newMap = new HashMap<>();
 
-			for(final Object key : providedMap.keySet()) {
-				newMap.put(key, transformObject(providedMap.get(key)));
+			for(final Entry<?, ?> entry : providedMap.entrySet()) {
+				newMap.put(entry.getKey(), transformObject(entry.getValue()));
 			}
 
 			return newMap;

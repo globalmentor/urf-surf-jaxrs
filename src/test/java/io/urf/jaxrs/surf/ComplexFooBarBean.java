@@ -20,8 +20,11 @@ import javax.annotation.*;
 
 /**
  * The most basic of JavaBean implementations. A pure bean.
+ * <p>
+ * The difference from this class and {@link SimpleFooBarBean} is only that the property <code>bar<code> is an instance of {@link SimpleFooBarBean}.
+ * </p>
  * 
- * @author Garret Wilson
+ * @author Magno Nascimento
  */
 public class ComplexFooBarBean {
 
