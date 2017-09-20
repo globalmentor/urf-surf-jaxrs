@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.urf.jaxrs.surf;
+package io.urf.surf.jaxrs;
 
 import static org.junit.Assert.*;
 
@@ -28,6 +28,7 @@ import static org.hamcrest.Matchers.*;
 import org.junit.*;
 
 import io.urf.SURF;
+import io.urf.surf.jaxrs.SurfMessageBodyWriter;
 import io.urf.surf.parser.SurfObject;
 import io.urf.surf.serializer.SurfSerializer;
 

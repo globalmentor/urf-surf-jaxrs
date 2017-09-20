@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.urf.jaxrs.surf;
+package io.urf.surf.jaxrs;
 
 import java.io.*;
 import java.lang.annotation.Annotation;
