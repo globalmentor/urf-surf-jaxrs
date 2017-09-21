@@ -195,32 +195,12 @@ public class SurfMessageBodyWriterTest {
 	 * correctly.
 	 */
 	@Test
-	public void testIsWriteableWithNullMediaType() {
+	public void testIsWriteable() {
 		final SurfMessageBodyWriter surfMessageBodyWriter = new SurfMessageBodyWriter();
 
 		assertThat(surfMessageBodyWriter.isWriteable(null, null, null, null), is(true));
-	}
-
-	/**
-	 * Tests whether the method
-	 * {@link SurfMessageBodyWriter#isWriteable(Class, java.lang.reflect.Type, java.lang.annotation.Annotation[], javax.ws.rs.core.MediaType)} is working
-	 * correctly.
-	 */
-	@Test
-	public void testIsWriteableWithCorrectMediaType() {
-		final SurfMessageBodyWriter surfMessageBodyWriter = new SurfMessageBodyWriter();
 
 		assertThat(surfMessageBodyWriter.isWriteable(null, null, null, new MediaType("text", "surf")), is(true));
-	}
-
-	/**
-	 * Tests whether the method
-	 * {@link SurfMessageBodyWriter#isWriteable(Class, java.lang.reflect.Type, java.lang.annotation.Annotation[], javax.ws.rs.core.MediaType)} is working
-	 * correctly.
-	 */
-	@Test
-	public void testIsWriteableWithIncorrectMediaType() {
-		final SurfMessageBodyWriter surfMessageBodyWriter = new SurfMessageBodyWriter();
 
 		assertThat(surfMessageBodyWriter.isWriteable(null, null, null, new MediaType("application", "json")), is(false));
 	}
