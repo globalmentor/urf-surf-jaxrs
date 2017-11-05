@@ -32,7 +32,7 @@ import com.globalmentor.itu.TelephoneNumber;
 
 import io.ploop.introspection.*;
 
-import io.urf.surf.parser.SurfObject;
+import io.urf.surf.model.SurfObject;
 import io.urf.surf.serializer.SurfSerializer;
 
 import static java.util.Objects.*;

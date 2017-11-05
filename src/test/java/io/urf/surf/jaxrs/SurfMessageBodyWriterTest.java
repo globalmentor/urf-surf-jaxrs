@@ -29,7 +29,7 @@ import org.junit.*;
 
 import io.urf.SURF;
 import io.urf.surf.jaxrs.SurfMessageBodyWriter;
-import io.urf.surf.parser.SurfObject;
+import io.urf.surf.model.SurfObject;
 import io.urf.surf.serializer.SurfSerializer;
 
 /**
