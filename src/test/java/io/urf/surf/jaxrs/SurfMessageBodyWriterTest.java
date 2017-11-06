@@ -27,10 +27,8 @@ import static org.hamcrest.Matchers.*;
 
 import org.junit.*;
 
-import io.urf.SURF;
+import io.urf.surf.*;
 import io.urf.surf.jaxrs.SurfMessageBodyWriter;
-import io.urf.surf.model.SurfObject;
-import io.urf.surf.serializer.SurfSerializer;
 
 /**
  * Class created to test the method of {@link SurfMessageBodyWriter}.

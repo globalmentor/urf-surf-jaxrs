@@ -31,9 +31,7 @@ import javax.ws.rs.ext.*;
 import com.globalmentor.itu.TelephoneNumber;
 
 import io.ploop.introspection.*;
-
-import io.urf.surf.model.SurfObject;
-import io.urf.surf.serializer.SurfSerializer;
+import io.urf.surf.*;
 
 import static java.util.Objects.*;
 
