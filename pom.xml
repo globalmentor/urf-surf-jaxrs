@@ -59,7 +59,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.globalmentor</groupId>
+			<groupId>io.ploop</groupId>
 			<artifactId>ploop-introspection</artifactId>
 			<version>0.1.0-SNAPSHOT</version>
 		</dependency>
